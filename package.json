@@ -11,6 +11,7 @@
   "dependencies": {
     "@react-email/components": "^0.0.41",
     "bcrypt": "^6.0.0",
+    "bcryptjs": "^3.0.2",
     "mongoose": "^8.15.1",
     "next": "15.3.2",
     "next-auth": "^4.24.11",
