@@ -111,7 +111,7 @@ const onSubmit=async(data: z.infer<typeof signUpSchema>) => {
                     {isCheckingUserName && <Loader2 className="ml-2 h-4 w-4 animate-spin" />}
                     <p className={`text-sm ${usernameMessage ==="Username is available" ? 'text-green-500'
                           : 'text-red-500'}`}>
-                        test {usernameMessage}
+                        {usernameMessage}
                     </p>
                   <FormMessage />
                 </FormItem>
