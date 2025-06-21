@@ -5,7 +5,7 @@ import UserModel from "@/model/User";
 import { NextResponse } from "next/server";
 //This user is not the one which I injected in the session, this is the one which I get from the next Auth
 import {User} from "next-auth"
-import mongoose from "mongoose";
+
 
 export async function DELETE(request: Request, { params }: { params: { messageid: string } }) {
     // id will be of type http://localhost/3000/.../messageid

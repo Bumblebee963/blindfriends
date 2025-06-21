@@ -10,13 +10,13 @@ const UsernameQuerySchema = z.object({
     username: usernameValidation
 })
 
-export async function GET(request: Request) {
+export async function GET(request: Request,{searchParams}: {searchParams: URLSearchParams}) {
     
     await dbConnect();
 
     try {
         //For extracting query parameters from the request
-        const {searchParams}=new URL(request.url);
+        //const {searchParams}=new URL(request.url);
         const queryParam={
             username: searchParams.get("username")
         }
