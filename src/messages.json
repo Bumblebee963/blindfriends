@@ -1,0 +1,17 @@
+[
+  {
+    "title": "Message from T-Rex",
+    "content": "Hey, how are you doing today?",
+    "received": "10 minutes ago"
+  },
+  {
+    "title": "Message from F1",
+    "content": "I really liked your recent post!",
+    "received": "2 hours ago"
+  },
+  {
+    "title": "Message from Monkey",
+    "content": "Do you have any book recommendations?",
+    "received": "1 day ago"
+  }
+]
