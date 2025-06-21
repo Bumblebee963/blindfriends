@@ -92,7 +92,7 @@ const Page = () => {
     }
 
   };
-  const {username}= session?.user
+  const {username=''}= session?.user || {};
   const baseUrl = `${window.location.protocol}//${window.location.host}`;
   const profileUrl = `${baseUrl}/u/${username}`;
 
