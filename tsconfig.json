@@ -13,6 +13,7 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "types": ["ai"],  //Added this line for AI support
     "plugins": [
       {
         "name": "next"

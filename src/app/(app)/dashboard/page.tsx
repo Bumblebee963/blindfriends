@@ -57,6 +57,7 @@ const Page = () => {
     setIsSwitchLoading(false);
     try {
       const response=await axios.get('/api/get-messages');
+      console.log(response);
       setMessages(response.data.messages || []);
       if (refresh) {
         toast.success("Messages refreshed successfully.");
@@ -100,9 +101,18 @@ const Page = () => {
     navigator.clipboard.writeText(profileUrl);
     toast.success("Link copied to clipboard!");
   };
-  if (!session || !session.user) {
-    return <div>Please login</div>;
-  }
+ if (!session || !session.user) {
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 px-4 text-center">
+      <h1 className="text-3xl font-bold text-gray-800 mb-4">Access Denied</h1>
+      <p className="text-gray-600 mb-6">
+        You must be logged in to view this page.
+      </p>
+      
+    </div>
+  );
+}
+
   return (
     <div className="my-8 mx-4 md:mx-8 lg:mx-auto p-6 bg-white rounded w-full max-w-6xl">
       <h1 className="text-4xl font-bold mb-4">User Dashboard</h1>

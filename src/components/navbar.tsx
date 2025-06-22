@@ -25,7 +25,7 @@ import { Button } from "./ui/button"
           </>
         ) : (
           <Link href="/sign-in">
-            <Button className="w-full md:w-auto bg-slate-100 text-black" variant={'outline'}>Login</Button>
+            <Button className="w-full md:w-auto bg-slate-100 text-black cursor-pointer " variant={'outline'}>Login</Button>
           </Link>
         )}
       </div>

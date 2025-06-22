@@ -86,7 +86,7 @@ const onSubmit=async(data: z.infer<typeof signInSchema>) => {
                 </FormItem>
               )}
             />
-            <Button type="submit" >
+            <Button type="submit" className="cursor-pointer" >
               Sign in
               </Button>
           </form>

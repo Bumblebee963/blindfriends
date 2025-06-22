@@ -1,35 +1,38 @@
+// app/api/suggest-messages/route.ts
 import { NextResponse } from 'next/server';
-import OpenAI from 'openai';
+import { generateText } from 'ai';
+import { groq } from '@ai-sdk/groq';
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-
-export default async function handler(req:Request) {
-  if (req.method !== 'POST') {
+export async function POST() {
+  if (!process.env.GROQ_API_KEY) {
+    console.error('[SUGGEST] MISSING GROQ_API_KEY');
     return NextResponse.json(
-      { error: 'Method not allowed' },
-      { status: 405 }
+      { message: 'Server misconfigured: missing GROQ_API_KEY.' },
+      { status: 500 }
     );
   }
 
   try {
-    const prompt =
-      "Create a list of three open-ended and engaging questions formatted as a single string. Each question should be separated by '||'. These questions are for an anonymous social messaging platform, like Qooh.me, and should be suitable for a diverse audience. Avoid personal or sensitive topics, focusing instead on universal themes that encourage friendly interaction. For example, your output should be structured like this: 'What’s a hobby you’ve recently started?||If you could have dinner with any historical figure, who would it be?||What’s a simple thing that makes you happy?'. Ensure the questions are intriguing, foster curiosity, and contribute to a positive and welcoming conversational environment.";
+    const timeOfDay = new Date().getHours();
+    const mood =
+      timeOfDay < 12
+        ? 'morning'
+        : timeOfDay < 18
+        ? 'afternoon'
+        : 'evening';
 
-    const completion = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo",
-      messages: [{ role: "user", content: prompt }],
+    const { text } = await generateText({
+      model: groq('gemma2-9b-it'),
+      temperature: 0.9,
+      prompt: `It's a pleasant ${mood}. Generate a list of three friendly, wholesome, and anonymous comments (not questions). Each comment should be separated by '||'. These comments will be posted anonymously on a public profile on a messaging platform like Qooh.me. Avoid personal, controversial, or offensive content. Keep them positive, uplifting, and suitable for a wide audience.`,
     });
 
+    console.log('[SUGGEST] Generated:', text);
+    return NextResponse.json({ suggestions: text });
+  } catch (err) {
+    console.error('[SUGGEST] generateText error', err);
     return NextResponse.json(
-      { suggestions: completion.choices[0].message.content },
-      { status: 200 }
-    );
-  } catch (error) {
-    console.error('OpenAI error:', error);
-    return NextResponse.json(
-      { error: 'Error processing your request' },
+      { message: 'Failed to generate suggestions' },
       { status: 500 }
     );
   }

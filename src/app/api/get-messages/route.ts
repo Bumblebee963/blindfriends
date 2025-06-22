@@ -25,7 +25,7 @@ export async function GET() {
         const user=await UserModel.aggregate([
             {
                 $match: {
-                    id: userID
+                    _id: userID
                 }
             },
             {
